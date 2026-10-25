@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: doctor-appointment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: doctor-appointment
+  template:
+    metadata:
+      labels:
+        app: doctor-appointment
+    spec:
+      containers:
+        - name: doctor-appointment
+          image: IMAGE_PLACEHOLDER
+          ports:
+            - containerPort: 5000
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
